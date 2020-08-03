@@ -1,0 +1,11 @@
+.app__page {
+    display: flex;
+}
+
+.app__sidebar{
+    flex: 0.2;
+}
+
+.app__mainContent {
+    flex: 0.8;
+}

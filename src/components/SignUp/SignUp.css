@@ -1,0 +1,9 @@
+.login-details {}
+
+.confirm__button {
+    display: flex;
+    flex: grow;
+    flex-direction: row;
+    justify-content: space-between;
+
+}

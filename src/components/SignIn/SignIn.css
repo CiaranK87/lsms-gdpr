@@ -1,0 +1,21 @@
+.google__button:before{
+    background-image : url(/public/assets/img/google-hangouts.svg);
+}
+
+.card {
+    margin-top: 100px;
+    margin-right: 325px;
+}
+
+.card > .card-body {
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-left: 100px;
+}
+
+.social__container {
+    justify-content: space-between;
+    margin-top: 30px;
+    
+}
+

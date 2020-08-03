@@ -1,0 +1,27 @@
+{
+  "name": "lsms-project",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.5.0",
+    "firebase": "^5.11.1",
+    "react": "^16.8.0",
+    "react-bootstrap": "^1.3.0",
+    "react-dom": "^16.8.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "2.1.1",
+    "recompose": "^0.30.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom --passWithNoTests",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

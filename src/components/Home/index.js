@@ -1,14 +1,16 @@
 import React from 'react';
 import { compose } from 'recompose';
+import './Home.css';
 
 import { withAuthorization, withEmailVerification } from '../Session';
-import Messages from '../Messages';
 
 const HomePage = () => (
-  <div>
-    <h1>Home Page</h1>
-    <p>The Home Page is accessible by every signed in user.</p>
-
+  <div className="app__page">
+    <div className="page__title">
+      <h1>Home Page</h1>
+      <p>Welcome to Language School Management System.</p>
+      <p>Please use the links on the Side Navigation bar to access the various GDPR Data Entry modules.</p>
+    </div>
   </div>
 );
 

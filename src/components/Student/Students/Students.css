@@ -1,0 +1,38 @@
+.student__addForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.student__addForm > .input {
+    flex: 0.1;
+}
+
+.table > td {
+    align-items: baseline;
+}
+
+.firstName {
+    flex: 0.125;
+}
+.surname {
+    flex: 0.125;
+}
+
+.email {
+    flex: 0.225;
+}
+
+.actions {
+    flex: 0.3;
+}
+
+.dateOfBirth {
+    flex: 0.15;
+    padding-bottom: 33px;
+}
+
+.telNo {
+    flex: 0.16;
+}

@@ -1,11 +1,25 @@
 .app__page {
     display: flex;
+    flex-direction: column;
 }
 
-.app__sidebar{
-    flex: 0.2;
+.header__content {
+    /* flex-direction: row; */
 }
 
-.app__mainContent {
-    flex: 0.8;
+.body__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-right: 50px;
+}
+
+.body__content > .app__sidebar{
+    position: sticky;
+    flex: 0.15;
+}
+
+.body__content > .app__mainContent {
+    margin-left: 5px;
+    flex: 0.85;
 }

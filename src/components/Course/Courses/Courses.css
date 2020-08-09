@@ -1,0 +1,34 @@
+.course__addForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.course__addForm > .input {
+    flex: 0.1;
+}
+
+.table > td {
+    vertical-align: bottom;
+}
+
+.firstName {
+    flex: 0.125;
+}
+.surname {
+    flex: 0.125;
+}
+
+.email {
+    flex: 0.185;
+}
+
+.dateOfBirth {
+    flex: 0.15;
+    padding-bottom: 33px;
+}
+
+.telNo {
+    flex: 0.16;
+}

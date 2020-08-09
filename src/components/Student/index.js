@@ -7,9 +7,9 @@ import Students from './Students/Students';
 const StudentPage = () => (
   <div>
     <h1>Student Page</h1>
-    <p>This page allows.</p>
+    <p>This page keeps track of all current students.</p>
 
-    <Students />
+     <Students />
   </div>
 );
 

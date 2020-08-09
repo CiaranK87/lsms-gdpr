@@ -5,6 +5,7 @@
 .card {
     margin-top: 100px;
     margin-right: 325px;
+    display: flex;
 }
 
 .card > .card-body {
@@ -13,9 +14,14 @@
     padding-left: 100px;
 }
 
+
 .social__container {
     justify-content: space-between;
     margin-top: 30px;
     
 }
 
+.input_form {
+    flex-direction: column;
+    justify-content: space-between;
+}

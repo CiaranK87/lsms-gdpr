@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
-import INTIAL_STUDENT_STATE from './Students'
 import { withFirebase } from '../../Firebase';
-import { Button} from 'react-bootstrap';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
+import Moment from 'react-moment';
+import { Button } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 class StudentItem extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      editStudent: INTIAL_STUDENT_STATE,
+      editStudent: props.student,
       editMode: false,
     };
 
@@ -24,9 +38,32 @@ class StudentItem extends Component {
   };
 
   onChangeFirstName = event => {
-    console.log()
-    const editStudent = {...this.props.student};
+    const editStudent = { ...this.props.student };
     editStudent.firstName = event.target.value;
+    this.setState({ editStudent: editStudent });
+  };
+
+  onChangeSurname = event => {
+    const editStudent = { ...this.props.student };
+    editStudent.surname = event.target.value;
+    this.setState({ editStudent: editStudent });
+  };
+
+  onChangeEmail = event => {
+    const editStudent = { ...this.props.student };
+    editStudent.email = event.target.value;
+    this.setState({ editStudent: editStudent });
+  };
+
+  onChangeDateOfBirth = date => {
+    const editStudent = { ...this.props.student };
+    editStudent.dateOfBirth = date.getTime();
+    this.setState({ editStudent: editStudent });
+  };
+
+  onChangetelNo = event => {
+    const editStudent = { ...this.props.student };
+    editStudent.telNo = event.target.value;
     this.setState({ editStudent: editStudent });
   };
 
@@ -41,40 +78,106 @@ class StudentItem extends Component {
     const { editMode, editStudent } = this.state;
 
     return (
-      <tr>
+      <TableRow>
         {editMode ? (
-          <input
-            type="text"
-            value={editStudent.firstName}
-            onChange={this.onChangeFirstName}
-          />
+          <>
+            <TableCell>
+              <TextField
+                type="text"
+                value={editStudent.firstName}
+                onChange={this.onChangeFirstName}
+              />
+            </TableCell>
+            <TableCell>
+              <TextField
+                type="text"
+                value={editStudent.surname}
+                onChange={this.onChangeSurname}
+              />
+            </TableCell>
+            <TableCell>
+              <TextField
+                type="text"
+                value={editStudent.email}
+                onChange={this.onChangeEmail}
+              />
+            </TableCell>
+            {/* <TableCell> */}
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  format="dd/MM/yyyy"
+                  margin="normal"
+                  id="date-picker-inline"
+                  label="Date of birth"
+                  value={editStudent.dateOfBirth}
+                  onChange={this.onChangeDateOfBirth}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            {/* </TableCell> */}
+            <TableCell>
+              <TextField
+                type="number"
+                value={editStudent.telNo}
+                onChange={this.onChangetelNo}
+              />
+            </TableCell>
+          </>
         ) : (
-          <td>
-            <strong>{student.firstName} {student.surname}</strong>
-            {student.editedAt && <span>(Edited)</span>}
-          </td>
+          <>
+            <TableCell>{student.firstName}</TableCell>
+            <TableCell>{student.surname}</TableCell>
+            <TableCell>{student.email}</TableCell>
+            <TableCell>
+              {student.dateOfBirth && (
+                <Moment
+                  date={student.dateOfBirth}
+                  format="DD/MM/YYYY"
+                />
+              )}
+            </TableCell>
+            <TableCell>{student.telNo}</TableCell>
+          </>
         )}
-
+        <TableCell>
           <span>
             {editMode ? (
               <span>
-                <Button onClick={this.onSaveEditStudent}>Save</Button>
-                <Button onClick={this.onToggleEditMode}>Reset</Button>
+                <IconButton
+                  aria-label="delete"
+                  onClick={this.onSaveEditStudent}
+                >
+                  <SaveIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="delete"
+                  onClick={this.onToggleEditMode}
+                >
+                  <CancelIcon />
+                </IconButton>
               </span>
             ) : (
-              <Button onClick={this.onToggleEditMode}>Edit</Button>
+              <IconButton
+                aria-label="delete"
+                onClick={this.onToggleEditMode}
+              >
+                <EditIcon />
+              </IconButton>
             )}
 
             {!editMode && (
-              <Button
-                type="button"
+              <IconButton
+                aria-label="delete"
                 onClick={() => this.onRemoveStudent(student.uid)}
               >
-                Delete
-              </Button>
+                <DeleteIcon />
+              </IconButton>
             )}
           </span>
-      </tr>
+        </TableCell>
+      </TableRow>
     );
   }
 }

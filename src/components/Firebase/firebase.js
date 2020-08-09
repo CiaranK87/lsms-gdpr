@@ -24,30 +24,15 @@ class Firebase {
 
     this.auth = app.auth();
     this.db = app.database();
-
-    /* Social Sign In Method Provider */
-
-    this.googleProvider = new app.auth.GoogleAuthProvider();
-    this.facebookProvider = new app.auth.FacebookAuthProvider();
-    this.twitterProvider = new app.auth.TwitterAuthProvider();
   }
 
   // *** Auth API ***
 
   doCreateUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
+    this.admin.doCreateUserWithEmailAndPassword(email, password);
 
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
-
-  doSignInWithGoogle = () =>
-    this.auth.signInWithPopup(this.googleProvider);
-
-  doSignInWithFacebook = () =>
-    this.auth.signInWithPopup(this.facebookProvider);
-
-  doSignInWithTwitter = () =>
-    this.auth.signInWithPopup(this.twitterProvider);
 
   doSignOut = () => this.auth.signOut();
 
@@ -98,16 +83,30 @@ class Firebase {
 
   users = () => this.db.ref('users');
 
-  // *** Message API ***
-
-  message = uid => this.db.ref(`messages/${uid}`);
-
-  messages = () => this.db.ref('messages');
   // *** Student API ***
   student = uid => this.db.ref(`students/${uid}`);
 
   students = () => this.db.ref('students');
 
+  // *** Transport API ***
+  transporter = uid => this.db.ref(`transporters/${uid}`);
+
+  transporters = () => this.db.ref('transporters');
+
+  // *** Teachers API ***
+  teacher = uid => this.db.ref(`teachers/${uid}`);
+
+  teachers = () => this.db.ref('teachers');
+
+  // *** Hosts API ***
+  host = uid => this.db.ref(`hosts/${uid}`);
+
+  hosts = () => this.db.ref('hosts');
+
+  // *** Courses API ***
+  course = uid => this.db.ref(`courses/${uid}`);
+
+  courses = () => this.db.ref('courses');
 }
 
 export default Firebase;

@@ -1,10 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 
 import { AuthUserContext } from '../Session';
 import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
+import './nav.css';
+import HomeIcon from '@material-ui/icons/Home';
+import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import SchoolIcon from '@material-ui/icons/School';
+import CommuteIcon from '@material-ui/icons/Commute';
+import HotelIcon from '@material-ui/icons/Hotel';
+import GroupIcon from '@material-ui/icons/Group';
+import NavigationRow from './NavigationRow';
 
 const Navigation = () => (
   <AuthUserContext.Consumer>
@@ -19,39 +27,27 @@ const Navigation = () => (
 );
 
 const NavigationAuth = ({ authUser }) => (
-  <ul>
-    <li>
-      <Link to={ROUTES.HOME}>Home</Link>
+  <div className="nav__main">
+  <NavigationRow Icon={HomeIcon} route={ROUTES.HOME} title="Home"></NavigationRow>
+  <NavigationRow Icon={LocalLibraryIcon} route={ROUTES.STUDENTS} title="Students"></NavigationRow>
+  <NavigationRow Icon={SchoolIcon} route={ROUTES.TEACHERS} title="Teachers"></NavigationRow>
+  <NavigationRow Icon={CommuteIcon} route={ROUTES.TRANSPORTERS} title="Transport"></NavigationRow>
+  <NavigationRow Icon={HotelIcon} route={ROUTES.HOSTS} title="Hosts"></NavigationRow>
+  <NavigationRow Icon={GroupIcon} route={ROUTES.COURSES} title="Courses"></NavigationRow>
+  
+    {/* <li>
+      
     </li>
-    <li>
-      <Link to={ROUTES.ACCOUNT}>Account</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.STUDENTS}>Students</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.TEACHERS}>Teachers</Link>
-    </li>
-    {!!authUser.roles[ROLES.ADMIN] && (
-      <li>
-        <Link to={ROUTES.ADMIN}>Admin</Link>
-      </li>
-    )}
-    <li>
-      <SignOutButton />
-    </li>
-  </ul>
+  </ul> */}
+
+  </div>
 );
 
 const NavigationNonAuth = () => (
-  <ul>
-    {/* <li>
-      <Link to={ROUTES.LANDING}>Landing</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-    </li> */}
-  </ul>
+  <>
+  </>
 );
+
+
 
 export default Navigation;

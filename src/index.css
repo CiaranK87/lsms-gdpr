@@ -12,3 +12,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.MuiTableCell-head {
+  font-weight: 600 !important;
+  color: white !important;
+  background-color: #b23578;
+}
+
+tr:nth-child(even) {background:lightgray}
+tr:nth-child(odd) {background: #FFF}

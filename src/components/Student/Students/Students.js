@@ -3,20 +3,27 @@ import React, { Component } from 'react';
 import { AuthUserContext } from '../../Session';
 import { withFirebase } from '../../Firebase';
 import StudentList from './StudentList';
-import { initializeApp } from 'firebase';
+import { Button } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import './Students.css';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const INTIAL_STUDENT_STATE = {
   firstName: '',
   surname: '',
   email: '',
-  dateOfBirth: '',
+  dateOfBirth: new Date(),
   telNo: '',
   address: {
     houseNumber: '',
     street: '',
     city: '',
     country: '',
-    postCode: ''
+    postCode: '',
   },
   nextOfKin: '',
   nextOfKinTelNo: '',
@@ -25,7 +32,6 @@ const INTIAL_STUDENT_STATE = {
 };
 
 class Students extends Component {
-
   constructor(props) {
     super(props);
 
@@ -47,7 +53,6 @@ class Students extends Component {
     this.props.firebase
       .students()
       .orderByChild('createdAt')
-      .limitToLast(this.state.limit)
       .on('value', snapshot => {
         const studentObject = snapshot.val();
 
@@ -72,19 +77,42 @@ class Students extends Component {
   }
 
   onChangeFirstName = event => {
-    const editStudent = {...this.state.student};
+    const editStudent = { ...this.state.student };
     editStudent.firstName = event.target.value;
     this.setState({ student: editStudent });
   };
 
-  onCreateStudent = (event) => {
-    console.log('Create Student');
+  onChangeSurname = event => {
+    const editStudent = { ...this.state.student };
+    editStudent.surname = event.target.value;
+    this.setState({ student: editStudent });
+  };
 
-    // const student = {
-    //   firstName: event.target.value.firstName
-    // };
+  onChangeEmail = event => {
+    const editStudent = { ...this.state.student };
+    editStudent.email = event.target.value;
+    this.setState({ student: editStudent });
+  };
+
+  onChangeDateOfBirth = date => {
+    const editStudent = { ...this.state.student };
+    editStudent.dateOfBirth = date.getTime();
+    this.setState({ student: editStudent });
+  };
+
+  onChangeTelNo = event => {
+    const editStudent = { ...this.state.student };
+    editStudent.telNo = event.target.value;
+    this.setState({ student: editStudent });
+  };
+
+  onCreateStudent = event => {
     this.props.firebase.students().push({
       firstName: this.state.student.firstName,
+      surname: this.state.student.surname,
+      email: this.state.student.email,
+      dateOfBirth: this.state.student.dateOfBirth,
+      telNo: this.state.student.telNo,
       createdAt: this.props.firebase.serverValue.TIMESTAMP,
     });
 
@@ -122,9 +150,9 @@ class Students extends Component {
         {authUser => (
           <div>
             {!loading && students && students.length > 5 && (
-              <button type="button" onClick={this.onNextPage}>
+              <Button type="button" onClick={this.onNextPage}>
                 More
-              </button>
+              </Button>
             )}
 
             {loading && <div>Loading ...</div>}
@@ -140,42 +168,63 @@ class Students extends Component {
 
             {!students && <div>There are no students ...</div>}
 
-            <form
-              onSubmit={event =>
-                this.onCreateStudent(event)
-              }
-            >
-              <input
-                type="text"
-                value={student.firstName || ''}
-                onChange={this.onChangeFirstName}
-                placeholder="First Name"
-              />
-              {/* <input
-                type="text"
-                value={student.surname}
-                // onChange={this.onChangeText}
-                placeholder="Surname"
-              />
-              <input
-                type="text"
-                value={student.email}
-                // onChange={this.onChangeText}
-                placeholder="Email"
-              />
-              <input
+            <hr/>
+            <h4>Add New Student</h4>
+
+            <form onSubmit={event => this.onCreateStudent(event)}>
+              <div className="student__addForm">
+                <TextField
+                  type="text"
+                  value={student.firstName || ''}
+                  onChange={this.onChangeFirstName}
+                  placeholder="First Name"
+                  className="firstName"
+                />
+                <TextField
+                  type="text"
+                  value={student.surname}
+                  onChange={this.onChangeSurname}
+                  placeholder="Surname"
+                  className="surname"
+                />
+                <TextField
+                  type="text"
+                  value={student.email}
+                  onChange={this.onChangeEmail}
+                  placeholder="Email"
+                  className="email"
+                />
+                {/* <TextField
                 type="text"
                 value={student.dateOfBirth}
-                // onChange={this.onChangeText}
+                onChange={this.onChangeDateOfBirth}
                 placeholder="Date of birth"
-              />
-              <input
-                type="text"
-                value={student.telNo}
-                // onChange={this.onChangeText}
-                placeholder="Telephone number"
               /> */}
-              <button type="submit">Save Student</button>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    format="dd/MM/yyyy"
+                    margin="normal"
+                    id="date-picker-inline"
+                    label="Date of Birth"
+                    value={student.dateOfBirth}
+                    onChange={this.onChangeDateOfBirth}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                    className="dateOfBirth"
+                  />
+                </MuiPickersUtilsProvider>
+                <TextField
+                  className="telNo"
+                  type="number"
+                  value={student.telNo}
+                  onChange={this.onChangeTelNo}
+                  placeholder="Telephone number"
+                />
+                <Button type="submit" variant="contained" color="primary">
+                  Add Student
+                </Button>
+              </div>
             </form>
           </div>
         )}

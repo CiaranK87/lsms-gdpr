@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
-import { Col, Card } from 'react-bootstrap';
+import { Col, Card} from 'react-bootstrap';
+import { Button } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 import './SignUp.css';
 
 const SignUpPage = () => (
   <div>
     <Card>
       <Card.Header>
-        <Card.Title as="h5">
-          Language School Management System Sign Up
-        </Card.Title>
+        <Card.Title as="h5">Register New User</Card.Title>
       </Card.Header>
       <Card.Body>
         <div className="signUp__container">
           <SignUpForm />
         </div>
-        <SignUpLink />
       </Card.Body>
     </Card>
   </div>
@@ -101,13 +100,12 @@ class SignUpFormBase extends Component {
       username,
       email,
       passwordOne,
-      passwordTwo,
       isAdmin,
       error,
     } = this.state;
 
     const isInvalid =
-      passwordOne !== passwordTwo ||
+      // passwordOne !== passwordTwo ||
       passwordOne === '' ||
       email === '' ||
       username === '';
@@ -116,48 +114,41 @@ class SignUpFormBase extends Component {
       <Col>
         <form onSubmit={this.onSubmit}>
           <div className="login-details">
-          <input
-            name="username"
-            value={username}
-            onChange={this.onChange}
-            type="text"
-            placeholder="Full Name"
-          />
-          <input
-            name="email"
-            value={email}
-            onChange={this.onChange}
-            type="text"
-            placeholder="Email Address"
-          />
-          <input
-            name="passwordOne"
-            value={passwordOne}
-            onChange={this.onChange}
-            type="password"
-            placeholder="Password"
-          />
-          <input
-            name="passwordTwo"
-            value={passwordTwo}
-            onChange={this.onChange}
-            type="password"
-            placeholder="Confirm Password"
-          />
+            <TextField
+              name="username"
+              value={username}
+              onChange={this.onChange}
+              type="text"
+              placeholder="Full Name"
+            />
+            <TextField
+              name="email"
+              value={email}
+              onChange={this.onChange}
+              type="text"
+              placeholder="Email Address"
+            />
+            <TextField
+              name="passwordOne"
+              value={passwordOne}
+              onChange={this.onChange}
+              type="password"
+              placeholder="Password"
+            />}
           </div>
           <div className="confirm__button">
             <label>
               Admin:
-              <input
+              <TextField
                 name="isAdmin"
                 type="checkbox"
                 checked={isAdmin}
                 onChange={this.onChangeCheckbox}
               />
             </label>
-            <button disabled={isInvalid} type="submit">
-              Sign Up
-            </button>
+            <Button disabled={isInvalid} type="submit">
+              Register
+            </Button>
           </div>
 
           {error && <p>{error.message}</p>}
@@ -167,17 +158,14 @@ class SignUpFormBase extends Component {
   }
 }
 
-const SignUpLink = () => (
-  <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-  </p>
-);
+// const SignUpLink = () => (
+//   <p>
+//     Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+//   </p>
+// );
 
-const SignUpForm = compose(
-  withRouter,
-  withFirebase,
-)(SignUpFormBase);
+const SignUpForm = compose(withRouter, withFirebase)(SignUpFormBase);
 
 export default SignUpPage;
 
-export { SignUpForm, SignUpLink };
+export { SignUpForm };

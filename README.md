@@ -35,6 +35,7 @@ LSMS provides tools for administrators and teachers to manage student enrolment,
 This project is **not currently deployed**, but all code is available for review. It was last run in a Firebase environment and would need minor updates to run locally or redeploy.
 
 ## 📂 Project Structure
+```
 lsms-gdpr/
 ├── functions/              # Firebase Cloud Functions (backend logic)
 ├── public/                 # Static assets and hosting files
@@ -45,6 +46,6 @@ lsms-gdpr/
 ├── .firebase.json          # Firebase configuration
 ├── firestore.indexes.json  # Firestore index definitions
 └── firestore.rules         # Firestore security rules
-
+```
 ## 📝 License
 This project was built for educational purposes as part of a postgraduate program and is not licensed for commercial use or production deployment.
